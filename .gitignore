@@ -1,0 +1,15 @@
+# Raw CI logs may hold secrets and private data. They must never be committed.
+corpus/raw/*
+!corpus/raw/README.md
+
+# Derived from private repositories. Do not publish without the owner's permission.
+corpus/sanitized/*
+!corpus/sanitized/.gitkeep
+docs/research-notes.md
+
+# Local list of private strings to scrub (the list itself is sensitive).
+.sanitize-denylist
+
+__pycache__/
+*.pyc
+.venv/
