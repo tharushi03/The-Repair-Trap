@@ -13,6 +13,20 @@ on one branch, closed by the next success (see `scripts/extract_runs.py`).
   Note the extra run IDs in `duplicates`. Otherwise one common failure dominates the
   corpus and any success rate measured on it.
 
+### Records from PR history
+
+Use `record_type: failure` only when something actually failed and the change repaired it.
+A planned migration that merely contains destructive SQL is a `risky_change`: fill in
+`data_risk`, leave the failure fields empty, and never count it in repair success rates.
+
+When one failure spans several PRs, as with a migration deleted in one PR and re-added in
+another, keep one record and list them all in `related_prs`. The root cause goes in
+`root_cause`, even if the PR that caused it looks unrelated.
+
+For `data_risk`, judge the operation by what the data could be, not by what a comment claims.
+A `ROUND()` conversion justified by "all values are whole" stays `write_destructive` unless
+the migration verifies it.
+
 ## Selection
 
 Incidents are chosen by `scripts/sample_incidents.py`, never by hand, and the seed
@@ -45,6 +59,8 @@ diff that actually addresses the root cause. Set `confidence: low` if you cannot
 | `duplicates` | list | Run IDs collapsed into this record | `[]` |
 | `selection` | enum | `census`, `random` or `targeted` | `random` |
 | `detected_by` | enum | `ci`, `runtime` or `pr_history` | `runtime` |
+| `record_type` | enum | `failure` or `risky_change` | `failure` |
+| `related_prs` | list | PRs that caused or fixed it, oldest first | `[101, 102, 103, 104]` |
 | `stage` | enum | Pipeline stage that failed | see below |
 | `error_type` | enum | Failure category | see below |
 | `raw_error` | string | Shortest verbatim lines that identify the failure | `Error: P3009 ...` |
