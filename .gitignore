@@ -10,6 +10,10 @@ docs/research-notes.md
 # Local list of private strings to scrub (the list itself is sensitive).
 .sanitize-denylist
 
+# Labelled records hold real identifiers. Keep them local.
+corpus/labelled/*
+!corpus/labelled/.gitkeep
+
 __pycache__/
 *.pyc
 .venv/
