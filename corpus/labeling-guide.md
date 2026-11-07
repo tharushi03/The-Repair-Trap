@@ -40,7 +40,7 @@ diff that actually addresses the root cause. Set `confidence: low` if you cannot
 |---|---|---|---|
 | `failure_id` | string | Source prefix + number | `src-001` |
 | `source` | string | Where it came from | `private-repo`, `ci-bench`, `public:owner/repo` |
-| `run_ids` | list | Failed runs in the incident | `[40441031588]` |
+| `run_ids` | list | Failed runs in the incident | `[run_id]` |
 | `attempts` | int | Failed runs before it passed | `10` |
 | `duplicates` | list | Run IDs collapsed into this record | `[]` |
 | `selection` | enum | `census`, `random` or `targeted` | `random` |
